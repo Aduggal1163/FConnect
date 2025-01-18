@@ -111,7 +111,23 @@ const getDisplayMedia = useCallback(() => {
     })
 }
 
-
+let getUserMedia = () => {
+  if ((video && videoAvailable) || (audio && audioAvailable)) {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: video,
+        audio: audio,
+      })
+      .then(getUserMediaSuccess)
+      .then((stream) => {})
+      .catch((e) => console.log(e));
+  } else {
+    try {
+      let tracks = localVideoRef.current.srcObject.getTracks();
+      tracks.forEach(track => track.stop());
+    } catch (error) {}
+  }
+};
 
   const getPermissions = async () => {
     try {
@@ -228,23 +244,7 @@ const getDisplayMedia = useCallback(() => {
         })
   };
 
-  let getUserMedia = () => {
-    if ((video && videoAvailable) || (audio && audioAvailable)) {
-      navigator.mediaDevices
-        .getUserMedia({
-          video: video,
-          audio: audio,
-        })
-        .then(getUserMediaSuccess)
-        .then((stream) => {})
-        .catch((e) => console.log(e));
-    } else {
-      try {
-        let tracks = localVideoRef.current.srcObject.getTracks();
-        tracks.forEach(track => track.stop());
-      } catch (error) {}
-    }
-  };
+ 
  
   let gotMessageFromServer = (fromId, message) => {
     var signal = JSON.parse(message);
