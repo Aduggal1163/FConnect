@@ -17,7 +17,7 @@ function HomeComponent() {
     <>
       <div className="navBar">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <h3>Apna Video Call</h3>
+          <h3>FaceConnect</h3>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <IconButton onClick={()=>{
