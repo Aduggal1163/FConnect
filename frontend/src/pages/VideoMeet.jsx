@@ -19,7 +19,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from "../styles/videoComponent.module.css"
 import { Badge, IconButton } from "@mui/material";
 import ButtonDark from '@mui/material/Button';
-const server_url = "http://localhost:8000";
+import server from "../environment";
+const server_url = server;
 var connections = {};
 const peerConfigConnections = {
   "iceServers": [{ "urls": "stun:stun.l.google.com:19302" }]
