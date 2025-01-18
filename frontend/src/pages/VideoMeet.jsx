@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef} from "react";
-import {useNavigate} from 'react-router-dom'
+import React, { useEffect, useState, useRef, useCallback} from "react";
+// import {useNavigate} from 'react-router-dom'
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import VideocamIcon from "@mui/icons-material/Videocam"
@@ -52,16 +52,25 @@ export default function VideoMeetComponent() {
   useEffect(() => {
     getPermissions();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  let getDisplayMedia = () => {
-    if (screen) {
-        if (navigator.mediaDevices.getDisplayMedia) {
-            navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
-                .then(getDislayMediaSuccess)
-                .then((stream) => { })
-                .catch((e) => console.log(e))
-        }
+//   let getDisplayMedia = () => {
+//     if (screen) {
+//         if (navigator.mediaDevices.getDisplayMedia) {
+//             navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
+//                 .then(getDislayMediaSuccess)
+//                 .then((stream) => { })
+//                 .catch((e) => console.log(e))
+//         } 
+//     }
+// }
+const getDisplayMedia = useCallback(() => {
+  if (screen) {
+    if (navigator.mediaDevices.getDisplayMedia) {
+      navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
+        .then(getDislayMediaSuccess)
+        .catch((e) => console.log(e));
     }
-}
+  }
+}, [screen]);
   let getDislayMediaSuccess = (stream) => {
     // console.log("HERE")
     try {
@@ -427,12 +436,10 @@ export default function VideoMeetComponent() {
     setAskForUsername(false);
     getMedia();
   };
-  useEffect(()=>{
-    if(screen !==undefined)
-    {
-      getDisplayMedia();
-    }
-  },[screen, getDisplayMedia]);
+  useEffect(() => {
+    getDisplayMedia();  // Call the memoized function inside the effect
+  }, [getDisplayMedia]);
+
 let handleScreen=()=>{
   setScreen(!screen)
 }
