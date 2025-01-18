@@ -11,14 +11,14 @@ import ScreenShareIcon from "@mui/icons-material/ScreenShare"
 import StopScreenShareIcon from "@mui/icons-material/StopScreenShare"
 import ChatIcon from "@mui/icons-material/Chat"
 import "../App.css"
-import Family from "./family.png"
+// import Family from "./family.png"
 import io from "socket.io-client";
 import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css';
 // import "../styles/videoComponent.css";
 import styles from "../styles/videoComponent.module.css"
 import { Badge, IconButton } from "@mui/material";
-import ButtonDark from '@mui/material/Button';
+// import ButtonDark from '@mui/material/Button';
 import server from "../environment";
 const server_url = server;
 var connections = {};
@@ -51,7 +51,7 @@ export default function VideoMeetComponent() {
   // }
   useEffect(() => {
     getPermissions();
-  },[]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   let getDisplayMedia = () => {
     if (screen) {
         if (navigator.mediaDevices.getDisplayMedia) {
@@ -144,7 +144,7 @@ export default function VideoMeetComponent() {
     if (video !== undefined && audio !== undefined) {
       getUserMedia();
     }
-  }, [audio, video]);
+  }, [audio, video, getUserMedia]);
 
   let getMedia = () => {
     setVideo(videoAvailable);
@@ -399,7 +399,7 @@ export default function VideoMeetComponent() {
     }
   };
 
-  let routeTo=useNavigate();
+  // let routeTo=useNavigate();
   let handleEndCall=()=>{
     try{
       let tracks=localVideoRef.current.srcObject.getTracks();
@@ -432,7 +432,7 @@ export default function VideoMeetComponent() {
     {
       getDisplayMedia();
     }
-  },[screen]);
+  },[screen, getDisplayMedia]);
 let handleScreen=()=>{
   setScreen(!screen)
 }
