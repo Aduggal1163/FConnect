@@ -5,7 +5,7 @@ import axios from "axios";
 import httpStatus from "http-status";
 export const AuthContext = createContext({});
 const client = axios.create({
-  baseURL: `${server}/api/1/users`,
+  baseURL: `${server}/api/v1/users`,
 });
 export const AuthProvider = ({ children }) => {
   const authContext = useContext(AuthContext);
